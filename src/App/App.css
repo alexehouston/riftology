@@ -1,0 +1,14 @@
+@font-face {
+  font-family: Beaufort;
+  src: url("/assets/fonts/Beaufort/Beaufort-Regular.ttf");
+}
+
+@font-face {
+  font-family: Spiegel;
+  src: url("/assets/fonts/Spiegel/Spiegel_Regular.ttf");
+}
+
+* {
+  box-sizing: border-box;
+  font-family: "Beaufort";
+}

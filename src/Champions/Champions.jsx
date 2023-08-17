@@ -3,6 +3,7 @@ import "./Champions.css";
 
 export default function Champions() {
   const [champions, setChampions] = useState([]);
+  const [selectedChampion, setSelectedChampion] = useState(null);
 
   useEffect(() => {
     const endpoint =
@@ -15,7 +16,11 @@ export default function Champions() {
         setChampions(championsData);
       })
       .catch((error) => console.error("Error fetching data:", error));
-  }, []);
+
+      if (champions.length > 0 && !selectedChampion) {
+        setSelectedChampion(champions[0]);
+      }
+    }, [champions, selectedChampion]);
 
   const normalizeChampionName = (name) => {
     if (name === "Bel'Veth") {
@@ -57,17 +62,43 @@ export default function Champions() {
     return name.replace(/[^\w]/g, "");
   };
 
+  const handleChampionClick = (champion) => {
+    setSelectedChampion(champion);
+  };
+
   return (
-    <div className="Champions">
-      {champions.map((champion) => (
-        <img
-          key={champion.id}
-          src={`http://ddragon.leagueoflegends.com/cdn/13.16.1/img/champion/${normalizeChampionName(
-            champion.name
-          )}.png`}
-          alt={champion.name}
-        />
-      ))}
+    <div className="d-flex flex-column align-items-center">
+      <div className="selectedChampion w-50">
+        {selectedChampion && (
+          <div className="d-flex justify-content-center">
+            <img
+            className="w-100"
+              src={`http://ddragon.leagueoflegends.com/cdn/img/champion/splash/${normalizeChampionName(
+                selectedChampion.name
+              )}_0.jpg`}
+              alt={selectedChampion.name}
+            />
+            <h2>{selectedChampion.name}</h2>
+          </div>
+        )}
+      </div>
+      <div className="Champions p-0 d-flex flex-wrap justify-content-center">
+        {champions.map((champion) => (
+          <img
+            className={`rounded-pill m-2 ${
+              selectedChampion && selectedChampion.id === champion.id
+                ? "selected"
+                : ""
+            }`}
+            key={champion.id}
+            src={`http://ddragon.leagueoflegends.com/cdn/13.16.1/img/champion/${normalizeChampionName(
+              champion.name
+            )}.png`}
+            alt={champion.name}
+            onClick={() => handleChampionClick(champion)} // Attach click handler
+          />
+        ))}
+      </div>
     </div>
   );
 }
