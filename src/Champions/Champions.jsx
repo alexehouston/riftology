@@ -17,10 +17,10 @@ export default function Champions() {
       })
       .catch((error) => console.error("Error fetching data:", error));
 
-      if (champions.length > 0 && !selectedChampion) {
-        setSelectedChampion(champions[0]);
-      }
-    }, [champions, selectedChampion]);
+    if (champions.length > 0 && !selectedChampion) {
+      setSelectedChampion(champions[0]);
+    }
+  }, [champions, selectedChampion]);
 
   const normalizeChampionName = (name) => {
     if (name === "Bel'Veth") {
@@ -67,12 +67,21 @@ export default function Champions() {
   };
 
   return (
-    <div className="d-flex flex-column align-items-center">
-      <div className="selectedChampion w-50">
+    <div className="d-flex flex-column align-items-center col-lg-10 vh-100">
+      <div className="position-fixed col-lg-10 vh-100">
+        <img
+          className="champion-blur w-100 h-100"
+          src={`http://ddragon.leagueoflegends.com/cdn/img/champion/splash/${normalizeChampionName(
+            selectedChampion.name
+          )}_0.jpg`}
+          alt={selectedChampion.name}
+        />
+      </div>
+      <div className="d-flex justify-content-center align-items-center col-lg-10 vh-100">
         {selectedChampion && (
-          <div className="d-flex justify-content-center">
+          <div className="selectedChampion">
             <img
-            className="w-100"
+            className="w-75 rounded"
               src={`http://ddragon.leagueoflegends.com/cdn/img/champion/splash/${normalizeChampionName(
                 selectedChampion.name
               )}_0.jpg`}
@@ -82,21 +91,25 @@ export default function Champions() {
           </div>
         )}
       </div>
-      <div className="Champions p-0 d-flex flex-wrap justify-content-center">
+      <div className="Champions p-0 d-flex col-lg-2 flex-wrap justify-content-center position-fixed end-0 vh-100 bg-dark">
         {champions.map((champion) => (
-          <img
-            className={`rounded-pill m-2 ${
-              selectedChampion && selectedChampion.id === champion.id
-                ? "selected"
-                : ""
-            }`}
-            key={champion.id}
-            src={`http://ddragon.leagueoflegends.com/cdn/13.16.1/img/champion/${normalizeChampionName(
-              champion.name
-            )}.png`}
-            alt={champion.name}
-            onClick={() => handleChampionClick(champion)} // Attach click handler
-          />
+          <>
+            <div className="champion m-2 rounded-pill">
+              <img
+                className={`${
+                  selectedChampion && selectedChampion.id === champion.id
+                    ? "selected"
+                    : ""
+                }`}
+                key={champion.id}
+                src={`http://ddragon.leagueoflegends.com/cdn/13.16.1/img/champion/${normalizeChampionName(
+                  champion.name
+                )}.png`}
+                alt={champion.name}
+                onClick={() => handleChampionClick(champion)} // Attach click handler
+              />
+            </div>
+          </>
         ))}
       </div>
     </div>
