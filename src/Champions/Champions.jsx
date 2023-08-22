@@ -2,8 +2,7 @@ import { useState, useEffect } from "react";
 import "./Champions.css";
 
 export default function Champions() {
-  const [champions, setChampions] = useState([]);
-  const [selectedChampion, setSelectedChampion] = useState(null);
+  const [champions, setChampions] = useState({});
 
   useEffect(() => {
     const endpoint =
@@ -12,15 +11,10 @@ export default function Champions() {
     fetch(endpoint)
       .then((response) => response.json())
       .then((data) => {
-        const championsData = Object.values(data.data);
-        setChampions(championsData);
+        setChampions(data.data);
       })
       .catch((error) => console.error("Error fetching data:", error));
-
-    if (champions.length > 0 && !selectedChampion) {
-      setSelectedChampion(champions[0]);
-    }
-  }, [champions, selectedChampion]);
+  }, []);
 
   const normalizeChampionName = (name) => {
     if (name === "Bel'Veth") {
@@ -62,54 +56,37 @@ export default function Champions() {
     return name.replace(/[^\w]/g, "");
   };
 
-  const handleChampionClick = (champion) => {
-    setSelectedChampion(champion);
-  };
-
   return (
-    <div className="d-flex flex-column align-items-center col-lg-10 vh-100">
-      <div className="position-fixed col-lg-10 vh-100">
+    <div className="Champions d-flex flex-column align-items-center justify-content-center w-100 animate__animated animate__fadeIn">
+      <div className="champion-header d-flex flex-column justify-content-center align-items-center">
         <img
-          className="champion-blur w-100 h-100"
-          src={`http://ddragon.leagueoflegends.com/cdn/img/champion/splash/${normalizeChampionName(
-            selectedChampion.name
-          )}_0.jpg`}
-          alt={selectedChampion.name}
+          className="icon"
+          src="/assets/misc/champion-section-icon.png"
+          alt="Chamions"
         />
+        <div className="champion-header-inner d-flex align-items-center mt-3 mb-5">
+          <img className="line-reflected" src="/assets/misc/line.png" alt="Chamions" />
+          <h1 className="d-inline text-uppercase mx-4">Champions</h1>
+          <img src="/assets/misc/line.png" alt="Chamions" />
+        </div>
       </div>
-      <div className="d-flex justify-content-center align-items-center col-lg-10 vh-100">
-        {selectedChampion && (
-          <div className="selectedChampion">
+      <div className="d-flex flex-wrap justify-content-center w-75">
+        {Object.values(champions).map((champion) => (
+          <div
+            className="champion overflow-hidden d-flex justify-content-center mx-2 my-4 position-relative"
+            key={champion.id}
+          >
             <img
-            className="w-75 rounded"
               src={`http://ddragon.leagueoflegends.com/cdn/img/champion/splash/${normalizeChampionName(
-                selectedChampion.name
+                champion.name
               )}_0.jpg`}
-              alt={selectedChampion.name}
+              alt={champion.name}
             />
-            <h2>{selectedChampion.name}</h2>
-          </div>
-        )}
-      </div>
-      <div className="Champions p-0 d-flex col-lg-2 flex-wrap justify-content-center position-fixed end-0 vh-100 bg-dark">
-        {champions.map((champion) => (
-          <>
-            <div className="champion m-2 rounded-pill">
-              <img
-                className={`${
-                  selectedChampion && selectedChampion.id === champion.id
-                    ? "selected"
-                    : ""
-                }`}
-                key={champion.id}
-                src={`http://ddragon.leagueoflegends.com/cdn/13.16.1/img/champion/${normalizeChampionName(
-                  champion.name
-                )}.png`}
-                alt={champion.name}
-                onClick={() => handleChampionClick(champion)} // Attach click handler
-              />
+            <div className="champion-info position-absolute bottom-0 m-0 h-25 d-flex flex-column justify-content-center">
+              <h1 className="text-uppercase p-0 m-0">{champion.name}</h1>
+              <h2 className="text-uppercase p-0 m-0">{champion.title}</h2>
             </div>
-          </>
+          </div>
         ))}
       </div>
     </div>

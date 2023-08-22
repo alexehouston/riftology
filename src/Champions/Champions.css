@@ -1,34 +1,63 @@
 .Champions {
-    overflow-y: scroll;
+    margin-top: 10rem;
+    position: relative;
+    z-index: 5;
+}
+
+.champion-header .icon {
+  max-width: 32px;
+  max-height: 32px;
+}
+
+.champion-header h1 {
+  color: #c4b998;
+  font-size: 24px;
+  letter-spacing: 7px;
+  text-indent: 8px;
+  text-transform: uppercase;
+}
+
+.line-reflected {
+  transform: scaleX(-1);
 }
 
 .champion {
-    width: 5rem;
-    overflow: hidden;
+  height: 25rem;
+  width: 15rem;
+  transition: all 0.5s ease;
+}
+
+.champion:hover {
+  transform: scale(1.125);
+  border: 1px solid #927345;
+  z-index: 999;
 }
 
 .champion img {
-    width: 100%;
-    transform: scale(1.1);
-    transition: all 0.5s ease;
+  height: 100%;
 }
 
-.champion img:hover {
-    transform: scale(1.3);
+.champion-info {
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  background-color: rgba(10, 10, 12, 0.9);
+  border-top: 1px solid #927345;
+  padding: 22px;
+  text-align: center;
+  transition: 0.4s;
 }
 
-.champion-blur {
-    filter: blur(1rem);
-    transform: scale(1.1);
+.champion-info h1 {
+  color: #937341;
+  font-size: 14px;
+  letter-spacing: 2px;
 }
 
-.selectedChampion {
-    position: relative;
-}
-
-.selectedChampion h2 {
-    position: absolute;
-    top: 5%;
-    left: 3%;
-    color: #fff;
+.champion h2 {
+  color: #c4b998;
+  font-size: 12px;
+  letter-spacing: 0.05em;
+  padding-top: 6px;
 }

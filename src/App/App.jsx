@@ -1,19 +1,25 @@
 import { Routes, Route, useLocation } from "react-router-dom";
-import Home from "../Home/Home";
+import Nav from "../Nav/Nav";
 import Champions from "../Champions/Champions";
-import 'bootstrap/dist/css/bootstrap.css';
+import "bootstrap/dist/css/bootstrap.css";
+import "animate.css";
 import "./App.css";
 
 export default function App() {
-  const apiKey = import.meta.env.VITE_RIOT_API_KEY;
   const location = useLocation();
 
   return (
-    <div className="container-fluid m-0 p-0">
+    <div className="App container-fluid m-0 p-0">
+      <Nav />
       <Routes location={location} key={location.pathname}>
-        <Route path="/" index element={<Home />} />
-        <Route path="/champions" index element={<Champions apiKey={apiKey} />} />
+        <Route path="/champions" element={<Champions />} />
       </Routes>
+
+      <div className="bg position-absolute">
+        <div className="bg-inner">
+          <img className="bg-img w-100" src="/assets/bg.jpg" alt="Riftology" />
+        </div>
+      </div>
     </div>
   );
 }

@@ -10,5 +10,54 @@
 
 * {
   box-sizing: border-box;
+  font-family: "Spiegel";
+  color: #fff;
+}
+
+body {
+  background-color: #000;
+}
+
+h1, h2, h3, h4, h5, h6 {
   font-family: "Beaufort";
+}
+
+a {
+  color: #fff;
+  text-decoration: none;
+}
+
+.App:before {
+  content: '';
+  background-image: linear-gradient(to top, rgba(0, 0, 0, 1), rgba(0, 0, 0, 0));
+  position: fixed;
+  height: 20%;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  z-index: 999;
+}
+
+.bg {
+  top: 7%;
+}
+
+.bg-inner {
+  position: relative;
+}
+
+.bg-inner:before {
+  content: '';
+  background-image: linear-gradient(to top, rgba(0, 0, 0, 255), rgba(0, 0, 0, 0));
+  position: absolute;
+  height: 70%;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  z-index: 1;
+}
+
+.bg-img {
+  filter: saturate(0) opacity(10%) contrast(.5);
+  z-index: 1;
 }
