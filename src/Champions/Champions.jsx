@@ -6,7 +6,7 @@ export default function Champions() {
 
   useEffect(() => {
     const endpoint =
-      "http://ddragon.leagueoflegends.com/cdn/13.16.1/data/en_US/champion.json";
+      "https://ddragon.leagueoflegends.com/cdn/13.16.1/data/en_US/champion.json";
 
     fetch(endpoint)
       .then((response) => response.json())
@@ -216,7 +216,7 @@ export default function Champions() {
           <img src="/assets/misc/line.png" alt="Chamions" />
         </div>
       </div>
-      <div className="d-flex flex-wrap justify-content-center w-75">
+      <div className="champions-inner d-flex flex-wrap justify-content-center">
         {Object.values(champions).map((champion) => (
           <div
             className={`champion overflow-hidden d-flex justify-content-center mx-2 my-4 position-relative ${getAlignmentClass(
