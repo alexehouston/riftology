@@ -1,5 +1,6 @@
 import { Routes, Route, useLocation } from "react-router-dom";
 import Nav from "../Nav/Nav";
+import Home from "../Home/Home";
 import Champions from "../Champions/Champions";
 import "bootstrap/dist/css/bootstrap.css";
 import "animate.css";
@@ -12,6 +13,7 @@ export default function App() {
     <div className="App container-fluid m-0 p-0">
       <Nav />
       <Routes location={location} key={location.pathname}>
+        <Route path="/" index element={<Home />} />
         <Route path="/champions" element={<Champions />} />
       </Routes>
 

@@ -1,0 +1,21 @@
+.Home {
+    width: 50%;
+}
+
+.akali, .yasuo {
+    z-index: 1;
+    width: 40%;
+}
+
+.lol {
+    width: 40%;
+    z-index: 2;
+}
+
+.akali {
+    margin: 4rem -1rem 0 0;
+}
+
+.yasuo {
+    margin: 0 1rem 0 0;
+}
